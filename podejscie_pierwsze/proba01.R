@@ -1,3 +1,5 @@
+
+
 fr <- function(x) sum(x)
 gr <- function(x) rep(1, times = 7)
 theta <- rep(2, times = 7)
