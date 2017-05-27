@@ -20,7 +20,7 @@ wielokat <- tibble(x = srodek_$x + c(R*cos(alpha), R[1]*cos(alpha[1])),
 ggp <- ggplot(data = wielokat) +
   geom_polygon(
     mapping = aes(x = x, y = y), 
-    fill = "red", alpha = 0.5) +
+    fill = "yellow", alpha = 0.5) +
   geom_path(mapping = aes(x = x, y = y)) +
   geom_point(mapping = aes(x = x, y = y, colour = nr)) +
   geom_hline(mapping = aes(yintercept = 0)) +
@@ -44,7 +44,6 @@ poz <- krawedzie %>%
   which.max %>%
   unname
 
-show(ggp)
 
 fun <- function(xx, string) xx - krawedzie[poz, string]
   
@@ -64,11 +63,10 @@ wielokat %<>%
 ggp <- ggp + 
   geom_polygon(
     mapping = aes(x = x, y = y), 
-    fill = "blue", alpha = 0.5, data = wielokat) +
+    fill = "blue", alpha = 0.3, data = wielokat) +
   geom_path(mapping = aes(x = x, y = y), data = wielokat) +
   geom_point(mapping = aes(x = x, y = y, colour = nr), data = wielokat)
 
-show(ggp)
 
 
 krawedzie %<>%
@@ -86,19 +84,41 @@ fun2 <- function(poz) (krawedzie[poz, "ystart"] - krawedzie[poz, "yend"]) / (kra
 beta <- atan(fun2(poz)) %>% unlist %>% unname
 M <- matrix(c(cos(beta), -sin(beta), sin(beta), cos(beta)), ncol = 2)
 
+end <- krawedzie[poz, c("xend", "yend")] %>% 
+  unlist %>% unname %>% 
+  matrix %>% `%*%`(M, .) %>% t %>%
+  .[,1]
+
+if (end < 0) {
+  M <- -M
+}
+
 for (i in wielokat %>% nrow %>% seq_len) {
-  
   wielokat[i, c("x", "y")] %<>% 
     unlist %>% unname %>% 
     matrix %>% `%*%`(M, .) %>% t  
-  
 }
 
 ggp <- ggp + 
   geom_polygon(
     mapping = aes(x = x, y = y), 
-    fill = "green", alpha = 0.5, data = wielokat) +
+    fill = "green", alpha = 0.5, data = wielokat
+    ) +
   geom_path(mapping = aes(x = x, y = y), data = wielokat) +
-  geom_point(mapping = aes(x = x, y = y, colour = nr), data = wielokat)
+  geom_point(mapping = aes(x = x, y = y, colour = nr), 
+             data = wielokat)
+
+w_extent <- raster::extent(wielokat)
+wielokat$x <- wielokat$x + abs(w_extent@xmin)
+wielokat$y <- wielokat$y + abs(w_extent@ymin)
+
+ggp <- ggp + 
+  geom_polygon(
+    mapping = aes(x = x, y = y), 
+    fill = "red", alpha = 0.93, data = wielokat
+  ) +
+  geom_path(mapping = aes(x = x, y = y), data = wielokat) +
+  geom_point(mapping = aes(x = x, y = y, colour = nr), 
+             data = wielokat)
 
 show(ggp)
