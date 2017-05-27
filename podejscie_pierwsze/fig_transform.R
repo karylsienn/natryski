@@ -1,21 +1,4 @@
-require(tibble)
-require(ggplot2)
-require(magrittr)
-require(dplyr)
-require(purrr)
-
-n <- 6
-srodek_ <- list(x = 2, y = 4)
-R_min <- 2
-R_max <- 8
-R <- runif(n, R_min, R_max)
-
-
-alpha <- sort(runif(n, .Machine$double.eps, 2*pi))
-wielokat <- tibble(x = srodek_$x + c(R*cos(alpha), R[1]*cos(alpha[1])),
-                   y = srodek_$y + c(R*sin(alpha), R[1]*sin(alpha[1])),
-                   nr = as.integer(c(seq_len(n), 1)))
-
+wielokat <- readRDS("wielokat.Rds")
 
 ggp <- ggplot(data = wielokat) +
   geom_polygon(
@@ -110,7 +93,7 @@ ggp <- ggp +
 
 w_extent <- raster::extent(wielokat)
 wielokat$x <- wielokat$x + abs(w_extent@xmin)
-wielokat$y <- wielokat$y + abs(w_extent@ymin)
+wielokat$y <- wielokat$y + abs(w_extent@ymin) # przy założeniu wypukłości ymin = 0. 
 
 ggp <- ggp + 
   geom_polygon(
@@ -122,3 +105,5 @@ ggp <- ggp +
              data = wielokat)
 
 show(ggp)
+
+saveRDS(wielokat, file = "wielokat_trans.Rds")

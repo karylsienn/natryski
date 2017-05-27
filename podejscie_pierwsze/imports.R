@@ -1,0 +1,5 @@
+require(tibble)
+require(ggplot2)
+require(magrittr)
+require(dplyr)
+require(purrr)
