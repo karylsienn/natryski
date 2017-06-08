@@ -1,8 +1,11 @@
 wielokat <- readRDS("wielokat_trans.Rds")
 
+
+
 ggp <- ggplot(data = wielokat,
               mapping = aes(x = x, y = y)) +
-  geom_polygon(fill = "red", alpha = 0.7)
+  geom_polygon(fill = "red", alpha = 0.7) +
+  geom_hline(mapping = aes(yintercept = intercept), data = )
 
 show(ggp)
 

@@ -1,7 +1,7 @@
-n <- 6
-srodek_ <- list(x = 2, y = 4)
-R_min <- 8
-R_max <- 8
+n <- 5
+srodek_ <- list(x = 6, y = 10)
+R_min <- 100
+R_max <- 100
 R <- runif(n, R_min, R_max)
 
 

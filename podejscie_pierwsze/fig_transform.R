@@ -111,4 +111,5 @@ ggp <- ggp +
 show(ggp)
 
 saveRDS(wielokat, file = "wielokat_trans.Rds")
-readr::write_csv(wielokat, "wielokat_trans3.csv")
+# Dla chłopaków
+readr::write_csv(wielokat, "wielokat_trans10.csv")
