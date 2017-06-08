@@ -1,4 +1,8 @@
 wielokat <- readRDS("wielokat.Rds")
+# 
+# wielokat <- tibble(x = c(482, 711, 854, 625, 477, 482), 
+#                    y = c(533.4320, 624.5695, 275.5796, 183.3307, 533.4320, 533.4320),
+#                    nr = c(1: (length(x)-1), 1))
 
 ggp <- ggplot(data = wielokat) +
   geom_polygon(
@@ -107,3 +111,4 @@ ggp <- ggp +
 show(ggp)
 
 saveRDS(wielokat, file = "wielokat_trans.Rds")
+readr::write_csv(wielokat, "wielokat_trans.csv")
