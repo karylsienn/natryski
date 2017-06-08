@@ -111,4 +111,4 @@ ggp <- ggp +
 show(ggp)
 
 saveRDS(wielokat, file = "wielokat_trans.Rds")
-readr::write_csv(wielokat, "wielokat_trans.csv")
+readr::write_csv(wielokat, "wielokat_trans3.csv")
