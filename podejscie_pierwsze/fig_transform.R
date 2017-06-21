@@ -1,4 +1,4 @@
-wielokat <- readRDS("wielokat.Rds")
+# wielokat <- readRDS("wielokat.Rds")
 # 
 # wielokat <- tibble(x = c(482, 711, 854, 625, 477, 482), 
 #                    y = c(533.4320, 624.5695, 275.5796, 183.3307, 533.4320, 533.4320),
@@ -6,7 +6,7 @@ wielokat <- readRDS("wielokat.Rds")
 
 ggp <- ggplot(data = wielokat) +
   geom_polygon(
-    mapping = aes(x = x, y = y), 
+    mapping = aes(x = x, y = y),
     fill = "yellow", alpha = 0.5) +
   geom_path(mapping = aes(x = x, y = y)) +
   geom_point(mapping = aes(x = x, y = y, colour = nr)) +
@@ -47,9 +47,9 @@ wielokat %<>%
 
 
 
-ggp <- ggp + 
+ggp <- ggp +
   geom_polygon(
-    mapping = aes(x = x, y = y), 
+    mapping = aes(x = x, y = y),
     fill = "blue", alpha = 0.3, data = wielokat) +
   geom_path(mapping = aes(x = x, y = y), data = wielokat) +
   geom_point(mapping = aes(x = x, y = y, colour = nr), data = wielokat)
@@ -86,30 +86,30 @@ for (i in wielokat %>% nrow %>% seq_len) {
     matrix %>% `%*%`(M, .) %>% t  
 }
 
-ggp <- ggp + 
+ggp <- ggp +
   geom_polygon(
-    mapping = aes(x = x, y = y), 
+    mapping = aes(x = x, y = y),
     fill = "green", alpha = 0.5, data = wielokat
     ) +
   geom_path(mapping = aes(x = x, y = y), data = wielokat) +
-  geom_point(mapping = aes(x = x, y = y, colour = nr), 
+  geom_point(mapping = aes(x = x, y = y, colour = nr),
              data = wielokat)
 
 w_extent <- raster::extent(wielokat)
 wielokat$x <- wielokat$x + abs(w_extent@xmin)
 wielokat$y <- wielokat$y + abs(w_extent@ymin) # przy założeniu wypukłości ymin = 0. 
 
-ggp <- ggp + 
+ggp <- ggp +
   geom_polygon(
-    mapping = aes(x = x, y = y), 
+    mapping = aes(x = x, y = y),
     fill = "red", alpha = 0.93, data = wielokat
   ) +
   geom_path(mapping = aes(x = x, y = y), data = wielokat) +
-  geom_point(mapping = aes(x = x, y = y, colour = nr), 
+  geom_point(mapping = aes(x = x, y = y, colour = nr),
              data = wielokat)
-
+# 
 show(ggp)
 
-saveRDS(wielokat, file = "wielokat_trans.Rds")
+# saveRDS(wielokat, file = "wielokat_trans.Rds")
 # Dla chłopaków
-readr::write_csv(wielokat, "wielokat_trans10.csv")
+# readr::write_csv(wielokat, "wielokat_trans10.csv")

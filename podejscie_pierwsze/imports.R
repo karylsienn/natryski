@@ -1,5 +1,7 @@
 require(tibble)
 require(ggplot2)
+require(ggforce)
 require(magrittr)
 require(dplyr)
 require(purrr)
+require(plyr)

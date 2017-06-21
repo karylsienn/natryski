@@ -12,16 +12,23 @@ rotate_point <- function(point, point_rot, alpha, clockwise = TRUE) {
   H1 <- matrix(c(1, 0, -x,
                  0, 1, -y,
                  0, 0, 1), nrow = 3, ncol = 3, byrow = TRUE)
+
   
-  H2 <- -matrix(c(cos(alpha), -sin(alpha), 0,
-                 sin(alpha), cos(alpha), 0,
+  H2 <- matrix(c(cos(alpha), sin(alpha), 0,
+                 -sin(alpha), cos(alpha), 0,
                  0, 0, 1), nrow = 3, ncol = 3, byrow = TRUE)
   
-  if(!clockwise) H2 <- -H2
+  if(!clockwise) {
+    H2 <- matrix(c(cos(alpha), -sin(alpha), 0,
+                   sin(alpha), cos(alpha), 0,
+                   0, 0, 1), nrow = 3, ncol = 3, byrow = TRUE)
+  } 
+
   
   H3 <- matrix(c(1, 0, x,
                  0, 1, y,
                  0, 0, 1), nrow = 3, ncol = 3, byrow = TRUE)
+  
   
   point <- c(point, 1)
   
